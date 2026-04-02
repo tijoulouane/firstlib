@@ -1,16 +1,15 @@
 Package: firstlib.tijou
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Fonctions de base pour mon premier package
 Version: 0.1.0
 Authors@R: c(
     person(
-      "Jane", "Doe",
-      email = "jane@example.com",
+      "Louane", "Tijou",
+      email = "tijoulouane@gmail.com",
       role = c("aut", "cre")
     )
   )
-Description: More about what it does (maybe more than one line).
-    Continuation lines should be indented.
-License: What license is it under?
+Description: Ce package contient des fonctions simples créées dans le cadre d'un apprentissage de R et Git.
+License: MIT  
 Encoding: UTF-8
 LazyData: true
