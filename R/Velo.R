@@ -117,3 +117,23 @@ plot_distribution_semaine <- function(trajet) {
     aes(x = jour, y = trajets) +
     geom_col()
 }
+
+#' @title Filtrer les trajets selon un ou plusieurs numéros de boucle
+#'
+#' @description Cette fonction filtre un jeu de données de trajets pour ne conserver
+#' que les lignes correspondant aux numéros de boucle sélectionnés.
+#'
+#' @param trajet Un data frame contenant les données de trajets.
+#' @param boucle Un vecteur de caractères contenant les numéros de boucle à conserver.
+#'
+#' @return Un data frame filtré selon les boucles sélectionnées.
+#'
+#' @importFrom dplyr filter
+#' @importFrom rlang .data
+#' @export
+filtrer_trajet <- function(trajet, boucle) {
+  dplyr::filter(
+    trajet,
+    as.character(.data[["Num\u00e9ro de boucle"]]) %in% boucle
+  )
+}
