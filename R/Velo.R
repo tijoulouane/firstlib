@@ -118,6 +118,7 @@ plot_distribution_semaine <- function(trajet) {
     geom_col()
 }
 
+
 #' @title Filtrer les trajets selon un ou plusieurs numéros de boucle
 #'
 #' @description Cette fonction filtre un jeu de données de trajets pour ne conserver
