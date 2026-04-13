@@ -70,16 +70,21 @@ trouver_trajet_max <- function(trajet) {
 #' @description Cette fonction calcule le nombre total de trajets
 #' par jour de la semaine.
 #'
-#' @param trajet Un data frame contenant les données de trajets.
+#' #' @param filtre Booléen. Si TRUE, les anomalies sont filtrées avant calcul.
+#' Si FALSE, le jeu de données est utilisé tel quel.
 #'
 #' @return Un data frame avec le jour de la semaine et le nombre
 #' total de trajets.
 #'
 #' @importFrom dplyr count
 #' @export
-calcul_distribution_semaine <- function(trajet) {
+calcul_distribution_semaine <- function(trajet, filtre = TRUE) {
+  if (filtre) {
+    trajet <- filtre_anomalie(trajet)
+  }
+
   trajet |>
-    count(`Jour de la semaine`, wt = Total, sort = TRUE, name = "trajets")
+    dplyr::count(`Jour de la semaine`, wt = Total, sort = TRUE, name = "trajets")
 }
 
 #' @title Représenter la distribution hebdomadaire des trajets
