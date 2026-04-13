@@ -1,0 +1,34 @@
+---
+title: "Utiliser les données df_velo"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Utiliser les données df_velo}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(firstlib.tijou)
+data("df_velo")
+```
+
+Exemple complet
+
+Voici un enchaînement complet : filtrer une boucle puis afficher le graphique correspondant.
+
+```{r}
+trajet_filtre <- filtrer_trajet(df_velo, "880")
+head(trajet_filtre)
+```
+
+```{r}
+plot_distribution_semaine(trajet_filtre)
+```
+
