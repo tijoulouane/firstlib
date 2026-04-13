@@ -20,3 +20,9 @@ Imports:
     forcats
 Depends: 
     R (>= 3.5)
+Suggests: 
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+VignetteBuilder: knitr

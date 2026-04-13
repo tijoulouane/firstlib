@@ -11,7 +11,7 @@
 #' @export
 filtre_anomalie <- function(trajet) {
   trajet |>
-    filter(is.na(`Probabilité de présence d'anomalies`))
+    dplyr::filter(is.na(`Probabilité de présence d'anomalies`))
 }
 
 #' @title Compter le nombre total de trajets
@@ -26,7 +26,7 @@ filtre_anomalie <- function(trajet) {
 #' @export
 compter_nombre_trajets <- function(trajet) {
   trajet |>
-    pull(Total) |>
+    dplyr::pull(Total) |>
     sum()
 }
 
@@ -43,8 +43,8 @@ compter_nombre_trajets <- function(trajet) {
 #' @export
 compter_nombre_boucle <- function(trajet) {
   trajet |>
-    pull(`Numéro de boucle`) |>
-    n_distinct()
+   dplyr::pull(`Numéro de boucle`) |>
+    dplyr::n_distinct()
 }
 
 #' @title Trouver le trajet ayant le plus grand total
@@ -61,8 +61,8 @@ compter_nombre_boucle <- function(trajet) {
 #' @export
 trouver_trajet_max <- function(trajet) {
   trajet |>
-    slice_max(Total, n = 1) |>
-    select(`Boucle de comptage`, Jour, Total)
+    dplyr::slice_max(Total, n = 1) |>
+    dplyr::select(`Boucle de comptage`, Jour, Total)
 }
 
 #' @title Calculer la distribution hebdomadaire des trajets
@@ -79,7 +79,7 @@ trouver_trajet_max <- function(trajet) {
 #' @export
 calcul_distribution_semaine <- function(trajet) {
   trajet |>
-    count(`Jour de la semaine`, wt = Total, sort = TRUE, name = "trajets")
+    dplyr::count(`Jour de la semaine`, wt = Total, sort = TRUE, name = "trajets")
 }
 
 #' @title Représenter la distribution hebdomadaire des trajets
@@ -100,8 +100,8 @@ plot_distribution_semaine <- function(trajet) {
   trajet_weekday <- trajet |>
     filtre_anomalie() |>
     calcul_distribution_semaine() |>
-    mutate(
-      jour = fct_recode(
+    dplyr::mutate(
+      jour = forcats::fct_recode(
         factor(`Jour de la semaine`),
         "lundi" = "1",
         "mardi" = "2",
@@ -113,9 +113,9 @@ plot_distribution_semaine <- function(trajet) {
       )
     )
 
-  ggplot(trajet_weekday) +
-    aes(x = jour, y = trajets) +
-    geom_col()
+  ggplot2::ggplot(trajet_weekday) +
+    ggplot2::aes(x = jour, y = trajets) +
+    ggplot2::geom_col()
 }
 
 
@@ -133,6 +133,10 @@ plot_distribution_semaine <- function(trajet) {
 #' @importFrom rlang .data
 #' @export
 filtrer_trajet <- function(trajet, boucle) {
+  if (is.null(boucle)) {
+    return(trajet)
+  }
+
   dplyr::filter(
     trajet,
     as.character(.data[["Num\u00e9ro de boucle"]]) %in% boucle
